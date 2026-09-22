@@ -1,0 +1,306 @@
+/* 1. Make the button full width and hidden by default */
+.hover-btn {
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 2. Show the button when the card is hovered */
+.card.custom-card:hover .hover-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Optional: Add a slight lift effect to the card on hover */
+.card.custom-card {
+    transition: transform 0.3s ease;
+}
+
+.card.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+/* 3. Mobile View: Keep button visible at all times */
+@media (max-width: 768px) {
+    .hover-btn {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Optional: Remove the lift effect on mobile for a flatter UI */
+    .card.custom-card:hover {
+        transform: none;
+    }
+}
+
+/* Container positioning */
+.owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Allows clicking through the container to the slides */
+}
+
+/* Individual Button Styling */
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel .owl-nav button.owl-prev {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #ffffff !important; /* Pure white circle */
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; /* Re-enables clicking on the button itself */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Positioning the buttons on the edges */
+.owl-nav button.owl-next { right: -25px; }
+.owl-nav button.owl-prev { left: -25px; }
+
+/* Hover effect */
+.owl-carousel .owl-nav button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Creating the thin Chevron (Arrow) */
+.owl-nav button span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid #222; /* Arrow thickness and color */
+    border-top: 2px solid #222;
+    text-indent: -9999px; /* Hide default text */
+}
+/* Hide navigation on screens smaller than 768px */
+@media (max-width: 767px) {
+    .owl-nav {
+        display: none !important;
+    }
+}
+.owl-next span { transform: rotate(45deg); margin-right: 4px; }
+.owl-prev span { transform: rotate(-135deg); margin-left: 4px; }
+/* Target the parent li with the .dropdown class */
+/* Only apply hover effect on screens wider than 991px (Desktop) */
+@media (min-width: 992px) {
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; /* Prevents a gap that might close the menu when moving mouse */
+    }
+}
+:root {
+  --peach: #f5d3c5;
+  --card-bg: #f9f6fa;
+}
+
+body { font-family: 'Inter', sans-serif; margin: 0; padding: 0px; background: #fff; }
+
+.brand-showcase {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Peach Background */
+.background-accent {
+  background-color: var(--peach);
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.text-content h1 { font-size: 42px; margin: 0; color: #333; }
+.text-content .label { text-transform: uppercase; font-size: 14px; margin-bottom: 8px; }
+
+/* Carousel Section */
+.carousel-container {
+  position: absolute;
+  right: 40px;
+  width: 40%;
+  top: 30px;
+}
+
+.carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  scrollbar-width: none; /* Hide scrollbar */
+}
+
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.carousel-card {
+  min-width: 60%;
+  background: var(--card-bg);
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+.card-image-wrapper {
+  padding: 0px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.card-image-wrapper img { height: 100%; object-fit: contain; }
+
+.brand-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.card-footer {
+  padding: 20px 30px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #ccc;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  width: 24px;
+  border-radius: 10px;
+  background: #000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .brand-showcase { flex-direction: column; }
+  .carousel-container { position: relative; width: 100%; right: 0; top: -50px; }
+  .background-accent { height: 350px; }
+}
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits text to 2 lines */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Optional: set a min-height to keep cards aligned */
+    min-height: 3em; 
+}
+/* Mobile Styling */
+@media (max-width: 767.98px) {
+    .accordion-footer h5 {
+        cursor: pointer;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 0;
+        font-size: 1.1rem;
+    }
+
+    /* Create the + icon */
+    .toggle-icon::after {
+        content: '+';
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    /* Switch to - icon when the section is NOT collapsed */
+    .accordion-footer h5:not(.collapsed) .toggle-icon::after {
+        content: '−';
+    }
+
+    .accordion-footer .collapse:not(.show) {
+        display: none;
+    }
+}
+
+/* Desktop Styling: Ensure content is always visible */
+@media (min-width: 768px) {
+    .collapse.d-md-block {
+        display: block !important;
+        height: auto !important;
+    }
+}
+/* Prevent content from being hidden behind the fixed bottom bar on mobile */
+@media (max-width: 991.98px) {
+    body {
+        padding-bottom: 60px; /* Adjust height based on your button bar size */
+    }
+}
+
+/* Optional: Make the buttons look more like a professional app bar */
+.fixed-bottom .btn-link {
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* First Navbar - Purple */
+nav.navbar-dark.sticky-top {
+    z-index: 1040; /* Ensure it stays above the second nav shadow */
+    margin-bottom: 0 !important;
+}
+
+/* Second Navbar - Light */
+@media (min-width: 992px) {
+    nav.navbar-light.sticky-top {
+        /* This 'top' value acts as a 'snap' point. 
+           Setting it slightly lower than the first nav's height 
+           forces them to touch. */
+        top: 56px !important; 
+        z-index: 1030;
+        border-top: none !important; /* Removes any top border that looks like a gap */
+        margin-top: -1px; /* Pulls the nav up by 1px to overlap any remaining gap */
+    }
+}
+
+/* Mobile fix - No offset needed */
+@media (max-width: 991px) {
+    nav.navbar-light.sticky-top {
+        top: 0 !important;
+    }
+}
+/* Desktop Sidebar Sticky Position */
+@media (min-width: 992px) {
+    .col-lg-3.sticky-top {
+        /* This value should be the height of both navbars combined + a little extra padding */
+        top: 130px !important; 
+        z-index: 1000;
+        height: calc(100vh - 140px); /* Keeps sidebar height within the viewport */
+        overflow-y: auto; /* Allows scrolling inside the filters if the list is long */
+        align-self: start; /* CRITICAL: Prevents the column from stretching to the row height */
+    }
+}
+
+/* Hide scrollbar for the filter sidebar for a cleaner look */
+.col-lg-3.sticky-top::-webkit-scrollbar {
+    width: 0px;
+}
