@@ -1257,40 +1257,54 @@ $(document).ready(function(){
 </div>
 
 <!-- Socket.io Client Library -->
-<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const socket = io("http://localhost:5000");
-
     const chatBox = document.getElementById("chat-box");
     const toggleBtn = document.getElementById("toggle-chat");
     const sendBtn = document.getElementById("send-chat");
     const input = document.getElementById("chat-input");
     const messages = document.getElementById("chat-messages");
 
+    // 1. Toggle Chat Window
     if (toggleBtn && chatBox) {
         toggleBtn.addEventListener("click", () => {
             chatBox.classList.toggle("d-none");
         });
     }
 
-    if (sendBtn) {
-        sendBtn.addEventListener("click", () => {
-            const text = input.value.trim();
-            if (text) {
-                socket.emit("send_message", { text: text, time: new Date().toLocaleTimeString() });
-                input.value = "";
-            }
-        });
+    let socket = null;
+    try {
+        if (typeof io !== "undefined") {
+            socket = io({ autoConnect: false });
+        }
+    } catch (err) {
+        console.warn("Socket not initialized:", err);
     }
 
-    socket.on("receive_message", (data) => {
-        const msgDiv = document.createElement("div");
-        msgDiv.className = "mb-2";
-        msgDiv.innerHTML = `<strong>User:</strong> ${data.text} <br><small class="text-muted" style="font-size:0.75rem">${data.time}</small>`;
-        messages.appendChild(msgDiv);
-        messages.scrollTop = messages.scrollHeight;
-    });
+    // 3. Send Message
+    if (sendBtn && input && messages) {
+        const handleSend = () => {
+            const text = input.value.trim();
+            if (!text) return;
+
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "p-1 mb-1 bg-light rounded text-end";
+            msgDiv.textContent = text;
+            messages.appendChild(msgDiv);
+            messages.scrollTop = messages.scrollHeight;
+
+            if (socket && socket.connected) {
+                socket.emit("send_message", { text: text, time: new Date().toLocaleTimeString() });
+            }
+            input.value = "";
+        };
+
+        sendBtn.addEventListener("click", handleSend);
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") handleSend();
+        });
+    }
 });
 </script>
 </body>
