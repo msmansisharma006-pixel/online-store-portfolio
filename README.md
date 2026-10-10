@@ -1,3 +1,5 @@
+### 🌐 Live Demo: [https://flip-ecommerce.onrender.com](https://flip-ecommerce.onrender.com)
+
 # Full-Stack E-Commerce Web Application
 
 A responsive full-stack e-commerce web platform developed using PHP, MySQL, Bootstrap 5, and JavaScript. The project features category-driven product browsing, an asynchronous AJAX shopping bag, responsive offcanvas filters, and secure session-based authentication.
